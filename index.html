@@ -31,6 +31,10 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     a {
       color: inherit;
       text-decoration: none;
@@ -334,6 +338,9 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.2rem;
     }
+    @media (max-width: 1024px) {
+      .skill-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
 
     .skill-card {
       background: rgba(15, 23, 42, 0.9);
@@ -364,8 +371,64 @@
       color: #e5e7eb;
     }
 
+    /* =========================================
+       EFECTO ZOOM AL PULSAR (LIGHTBOX)
+       ========================================= */
+    
+    /* 1. Estilo para la imagen pequeña (thumbnail) */
+    .zoom-thumb {
+      cursor: zoom-in;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 0.5rem;
+    }
+    /* Efecto hover suave */
+    .zoom-thumb:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+    }
+
+    /* 2. El contenedor oculto (Lightbox) */
+    .lightbox {
+      display: none; /* Oculto por defecto */
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9); /* Fondo oscuro */
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+      cursor: zoom-out; /* Icono para cerrar */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* 3. Cuando el ID de la lightbox es el "target" (se pulsó el link) */
+    .lightbox:target {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* La imagen dentro del lightbox */
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      border: 2px solid var(--border);
+      animation: zoomIn 0.3s ease forwards;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* ========================================= */
+
     /* Formación */
-    /* NUEVO CSS: GRID PARA FORMACION Y TRABAJO LADO A LADO */
     .timeline-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -374,12 +437,12 @@
     }
 
     .timeline-column-header {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: var(--accent);
-        margin-bottom: 1.2rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .timeline {
@@ -517,7 +580,6 @@
       .hero {
         padding-top: 3.5rem;
       }
-      /* Aquí hacemos que en móvil se apilen de nuevo */
       .about-grid,
       .skill-columns,
       .contact-grid,
@@ -551,7 +613,6 @@
         <ul>
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#sobre-mi">Sobre mí</a></li>
-          <!-- <li><a href="#skills">Skills</a></li> -->
           <li><a href="#proyectos">Proyectos</a></li>
           <li><a href="#formacion">Formación</a></li>
           <li><a href="#contacto">Contacto</a></li>
@@ -559,7 +620,8 @@
       </nav>
       <div class="nav-cta">
         <a href="#contacto" class="btn btn-ghost">Disponibilidad</a>
-<a href="CV_JoseAntonioSeguraMatute.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Descargar CV</a>      </div>
+        <a href="JoseAntonioSeguraMatuteCV.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Descargar CV</a>
+      </div>
     </div>
   </header>
 
@@ -662,14 +724,17 @@
           <p class="section-description">
             Algunos de los proyectos personales que he desarrollado y desplegado,
             donde pongo en práctica mis conocimientos de desarrollo de aplicaciones web.
+            <br>
+            <small style="color:var(--accent)">(Pulsa en las imágenes para ampliarlas)</small>
           </p>
         </div>
 
         <div class="skill-columns">
+          
           <article class="skill-card">
             <h3>Sport · La Feria de Pepe</h3>
             <p style="font-size:0.88rem; color:#9ca3af; margin-top:0.35rem; margin-left: 30%;">
-              <img style="max-width: 70px; max-height: 70px; " src="vite.svg" alt="">
+              <img style="max-width: 70px; max-height: 70px; " src="furbito/vite.svg" alt="">
             </p>
             <div class="skill-pills" style="margin-top:0.6rem;">
               <span class="skill-pill">Proyecto personal</span>
@@ -680,18 +745,22 @@
               <a href="https://sport.laferiadepepe.es/" target="_blank" rel="noopener noreferrer">
                 https://sport.laferiadepepe.es/
               </a>
-              <br>
-              <br>
-              <br>
+              <br><br><br>
               Presentacion:
-              <a href="https://www.canva.com/design/DAG7U0xNisQ/6VJjUdhAEvXesFZTPhSxvg/view?utm_c
-ontent=DAG7U0xNisQ&utm_campaign=designshare&utm_medium=link2&utm_source=
-uniquelinks&utlId=hbe974323e5  " target="_blank" rel="noopener noreferrer">Canvas de la Presentacion</a>
+              <a href="https://www.canva.com/design/DAG7U0xNisQ/6VJjUdhAEvXesFZTPhSxvg/view?utm_content=DAG7U0xNisQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hbe974323e5" target="_blank" rel="noopener noreferrer">Canvas de la Presentacion</a>
             </p>
           </article>
 
           <article class="skill-card">
             <h3>Cuentas · La Feria de Pepe</h3>
+            <p style="font-size:0.88rem; color:#9ca3af; margin-top:0.35rem; display:flex; justify-content:center;">
+              <a href="#zoom-calendario">
+                <img class="zoom-thumb" style="max-width: 70px; max-height: 70px;" src="imagenes/calendario.png" alt="Juego Hex">
+              </a>
+            </p>
+             <a href="#_" class="lightbox" id="zoom-calendario">
+               <img src="imagenes/calendario.png" alt="Calendario Pantalla Completa">
+            </a>
             <p style="font-size:0.88rem; color:#9ca3af; margin-top:0.35rem;">
               Proyecto personal orientado a seguir mejorando mis habilidades en desarrollo
               de aplicaciones web y gestión de información.
@@ -707,6 +776,79 @@ uniquelinks&utlId=hbe974323e5  " target="_blank" rel="noopener noreferrer">Canva
               </a>
             </p>
           </article>
+
+          <article class="skill-card">
+            <h3>Juego Hex · La Feria de Pepe</h3>
+            <p style="font-size:0.88rem; color:#9ca3af; margin-top:0.35rem; display:flex; justify-content:center;">
+              <a href="#zoom-hex">
+                <img class="zoom-thumb" style="max-width: 70px; max-height: 70px;" src="imagenes/hex.png" alt="Juego Hex">
+              </a>
+            </p>
+            
+            <a href="#_" class="lightbox" id="zoom-hex">
+               <img src="imagenes/hex.png" alt="Juego Hex Pantalla Completa">
+            </a>
+
+            <div class="skill-pills" style="margin-top:0.6rem;">
+              <span class="skill-pill">Proyecto personal</span>
+              <span class="skill-pill">Juego Web</span>
+            </div>
+            <p style="font-size:0.85rem; margin-top:0.7rem;">
+              URL: 
+              <a href="https://calendario.laferiadepepe.es/juego.php" target="_blank" rel="noopener noreferrer">
+                https://calendario.laferiadepepe.es/juego.php
+              </a>
+            </p>
+          </article>
+
+          <article class="skill-card">
+            <h3>Calendario · La Feria de Pepe</h3>
+            <p style="font-size:0.88rem; color:#9ca3af; margin-top:0.35rem; display:flex; justify-content:center;">
+              <a href="#zoom-pareja">
+                <img class="zoom-thumb" style="max-width: 70px; max-height: 70px;" src="imagenes/pareja.png" alt="Calendario">
+              </a>
+            </p>
+
+            <a href="#_" class="lightbox" id="zoom-pareja">
+               <img src="imagenes/pareja.png" alt="Calendario Pantalla Completa">
+            </a>
+
+            <div class="skill-pills" style="margin-top:0.6rem;">
+              <span class="skill-pill">Proyecto personal</span>
+              <span class="skill-pill">Gestión</span>
+            </div>
+            <p style="font-size:0.85rem; margin-top:0.7rem;">
+              URL: 
+              <a href="https://calendario.laferiadepepe.es" target="_blank" rel="noopener noreferrer">
+                https://calendario.laferiadepepe.es
+              </a>
+            </p>
+          </article>
+
+          <article class="skill-card">
+            <h3>Bus · La Feria de Pepe</h3>
+            <p style="font-size:0.88rem; color:#9ca3af; margin-top:0.35rem; display:flex; justify-content:center;">
+              <a href="#zoom-bus">
+                <img class="zoom-thumb" style="max-width: 70px; max-height: 70px;" src="imagenes/bus.png" alt="Bus App">
+              </a>
+            </p>
+
+            <a href="#_" class="lightbox" id="zoom-bus">
+               <img src="imagenes/bus.png" alt="Bus App Pantalla Completa">
+            </a>
+
+            <div class="skill-pills" style="margin-top:0.6rem;">
+              <span class="skill-pill">Proyecto personal</span>
+              <span class="skill-pill">Transporte</span>
+            </div>
+            <p style="font-size:0.85rem; margin-top:0.7rem;">
+              URL: 
+              <a href="https://bus.laferiadepepe.es" target="_blank" rel="noopener noreferrer">
+                https://bus.laferiadepepe.es
+              </a>
+            </p>
+          </article>
+
         </div>
       </div>
     </section>
@@ -746,7 +888,7 @@ uniquelinks&utlId=hbe974323e5  " target="_blank" rel="noopener noreferrer">Canva
             <h3 class="timeline-column-header">Formación Académica</h3>
             <div class="timeline">
               <article class="timeline-item">
-                <div class="timeline-period">2024 - actualidad</div>
+                <div class="timeline-period">2023 - 2025</div>
                 <div class="timeline-title">Técnico Superior en Desarrollo de Aplicaciones Web</div>
                 <div class="timeline-meta">Instituto de Educación Secundaria Ruiz Gijón</div>
               </article>
@@ -830,6 +972,3 @@ uniquelinks&utlId=hbe974323e5  " target="_blank" rel="noopener noreferrer">Canva
   </script>
 </body>
 </html>
-
-
-
